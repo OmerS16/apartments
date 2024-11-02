@@ -3,7 +3,7 @@ import streamlit as st
 from io import BytesIO
 import requests
 
-url = "https://github.com/OmerS16/neighborhoods/blob/8f9507b42200b3f5fea9c8d6cb11ecf34fe1312e/apartments_databasee.pkl?raw=true"
+url = "https://github.com/OmerS16/neighborhoods/blob/8f9507b42200b3f5fea9c8d6cb11ecf34fe1312e/apartments_database.pkl?raw=true"
 file = BytesIO(requests.get(url).content)
 df = pd.read_pickle(file)
 
