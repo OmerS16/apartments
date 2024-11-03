@@ -34,7 +34,7 @@ m = folium.Map(location=map_center, zoom_start=12)
 for _, row in filtered_apartments.iterrows():
     folium.Marker(
         location=[row['lat'], row['lon']],
-        popup=f"<a href='{row['url']}' target='_blank'>Click here for details</a>",
+        # popup=f"<a href='{row['url']}' target='_blank'>Click here for details</a>",
         tooltip=row.get('street')
         ).add_to(m)
     
