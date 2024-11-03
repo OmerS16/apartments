@@ -52,4 +52,5 @@ average_price = average_price.rename(columns={'price_count':'count', 'rooms_':'r
 average_price = average_price[['city', 'neighborhood', 'rooms', 'price_mean', 'sq_m_mean', 'count']]
 average_price['price_per_sq_m'] = average_price['price_mean'] / average_price['sq_m_mean']
 
-average_price.to_pickle('database_apartments.pkl')
+apartments.to_pickle('apartments_database.pkl')
+average_price.to_pickle('average_price_database.pkl')

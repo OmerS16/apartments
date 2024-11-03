@@ -47,7 +47,7 @@ results_list = []
 
 with ThreadPoolExecutor(max_workers=10) as executor:
     tasks = [(row['topArea_id'], row['area_id'], row['city_id'], neighborhood_id) 
-             for _, row in input_df.iterrows() for neighborhood_id in range(1, 2001)]
+             for _, row in input_df.iterrows() for neighborhood_id in list(range(1, 2001)) + list(range(990000, 992001))]
     
     for result in tqdm(executor.map(lambda args: fetch_neighborhood_data(*args), tasks), total=len(tasks)):
         if result is not None:
