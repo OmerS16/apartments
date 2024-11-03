@@ -19,8 +19,8 @@ budget = st.sidebar.number_input("Enter your budget (in shekels):", min_value=0,
 num_rooms = st.sidebar.number_input("Enter the number of rooms:", min_value=1, value=2, step=1)
 
 filtered_average_price = average_price[(average_price['rooms'] == num_rooms) & (average_price['price_mean'] <= budget)]
-
 filtered_average_price = filtered_average_price.sort_values('price_per_sq_m')
+filtered_apartments = apartments[(apartments['rooms'] == num_rooms) & (apartments['price'] <= budget)]
 
 if not filtered_average_price.empty:
     st.subheader("Best neighborhoods in Tel Aviv area for your budget")
@@ -31,7 +31,7 @@ else:
 map_center = [apartments['lat'].mean(), apartments['lon'].mean()]
 m = folium.Map(location=map_center, zoom_start=5)
 
-for _, row in apartments.iterrows():
+for _, row in filtered_apartments.iterrows():
     folium.Marker(
         location=[row['lat'], row['lon']],
         popup=row['street']
