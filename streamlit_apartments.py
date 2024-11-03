@@ -16,7 +16,7 @@ st.title("Find the best neighborhood for your budget")
 st.sidebar.header("Input your preferences")
 
 budget = st.sidebar.number_input("Enter your budget (in shekels):", min_value=0, value=5000, step=1000)
-num_rooms = st.sidebar.number_input("Enter the number of rooms:", min_value=1, value=2, step=1)
+num_rooms = st.sidebar.number_input("Enter the number of rooms:", min_value=1, value=3, step=1)
 
 filtered_average_price = average_price[(average_price['rooms'] == num_rooms) & (average_price['price_mean'] <= budget)]
 filtered_average_price = filtered_average_price.sort_values('price_per_sq_m')
