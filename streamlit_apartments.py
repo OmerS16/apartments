@@ -28,10 +28,6 @@ if not filtered_average_price.empty:
 else:
     st.write("No neighborhoods match your criteria. Try adjusting your budget or number of rooms.")
 
-if 'first_load' not in st.session_state:
-    st.session_state['first_load'] = True
-    st.experimental_set_query_params(refresh=True)
-
 map_center = [apartments['lat'].mean(), apartments['lon'].mean()]
 m = folium.Map(location=map_center, zoom_start=12)
 
@@ -44,3 +40,6 @@ for _, row in filtered_apartments.iterrows():
     
 st_folium(m, width=700, height=500)
 
+if 'first_load' not in st.session_state:
+    st.session_state['first_load'] = True
+    st.experimental_set_query_params(refresh=True)
