@@ -29,7 +29,7 @@ else:
     st.write("No neighborhoods match your criteria. Try adjusting your budget or number of rooms.")
 
 map_center = [apartments['lat'].mean(), apartments['lon'].mean()]
-m = folium.Map(location=map_center, zoom_start=5)
+m = folium.Map(location=map_center, zoom_start=15)
 
 for _, row in filtered_apartments.iterrows():
     folium.Marker(
