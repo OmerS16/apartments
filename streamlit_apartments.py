@@ -32,10 +32,15 @@ map_center = [apartments['lat'].mean(), apartments['lon'].mean()]
 m = folium.Map(location=map_center, zoom_start=12)
 
 for _, row in filtered_apartments.iterrows():
-    folium.Marker(
+    folium.CircleMarker(
         location=[row['lat'], row['lon']],
-        # popup=f"<a href='{row['url']}' target='_blank'>Click here for details</a>",
-        # tooltip=row.get('street')
+        radius=5,
+        color='orange',
+        fill=True,
+        fill_color='white',
+        fill_opacity=0.8,
+        popup=f"<a href='{row['url']}' target='_blank'>Click here for details</a>",
+        tooltip=row.get('street')
         ).add_to(m)
     
 st_folium(m, width=700, height=500)
