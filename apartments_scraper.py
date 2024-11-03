@@ -2,7 +2,7 @@ import pandas as pd
 import requests
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-neighborhoods = pd.read_pickle(r"C:\Users\Omer\Desktop\Coding\yad2 scraper\neighborhoods_database.pkl")
+neighborhoods = pd.read_pickle('neighborhoods_database.pkl')
 
 def fetch_apartments_data(row):
     area_id = row['area_id']
@@ -52,4 +52,4 @@ average_price = average_price.rename(columns={'price_count':'count', 'rooms_':'r
 average_price = average_price[['city', 'neighborhood', 'rooms', 'price_mean', 'sq_m_mean', 'count']]
 average_price['price_per_sq_m'] = average_price['price_mean'] / average_price['sq_m_mean']
 
-average_price.to_pickle(r"C:\Users\Omer\Desktop\Coding\yad2 scraper\database_apartments.pkl")
+average_price.to_pickle('database_apartments.pkl')
