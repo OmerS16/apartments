@@ -39,3 +39,7 @@ for _, row in filtered_apartments.iterrows():
         ).add_to(m)
     
 st_folium(m, width=700, height=500)
+
+if 'first_load' not in st.session_state:
+    st.session_state['first_load'] = True
+    st.experimental_rerun()
