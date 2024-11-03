@@ -35,7 +35,7 @@ for _, row in filtered_apartments.iterrows():
     folium.Marker(
         location=[row['lat'], row['lon']],
         popup=f"<a href='{row['url']}' target='_blank'>Click here for details</a>",
-        tooltip=row.get('street', 'price')
+        tooltip=row.get('street')
         ).add_to(m)
     
 st_folium(m, width=700, height=500)
