@@ -43,6 +43,8 @@ apartments = apartments.rename(columns={'address.city.text':'city',
                             'additionalDetails.squareMeter':'sq_m',
                             'metaData.coverImage':'image',})
 
+apartments['url'] = "https://www.yad2.co.il/realestate/item/" + apartments['token']
+
 # # Analyzing data
 average_price = apartments.groupby(['city', 'neighborhood', 'rooms'])[['price', 'sq_m']].agg(['mean', 'count'])
 average_price.columns = ['_'.join(col).strip() for col in average_price.columns]
