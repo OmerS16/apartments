@@ -3,6 +3,7 @@ import requests
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 neighborhoods = pd.read_pickle('neighborhoods_database.pkl')
+dankal = pd.read_excel('dankal.xlsx')
 
 def fetch_apartments_data(row):
     area_id = row['area_id']
@@ -55,5 +56,44 @@ average_price = average_price[['city', 'neighborhood', 'rooms', 'price_mean', 's
 average_price['price_per_sq_m'] = average_price['price_mean'] / average_price['sq_m_mean']
 average_price[['price_mean', 'sq_m_mean', 'price_per_sq_m']] = average_price[['price_mean', 'sq_m_mean', 'price_per_sq_m']].astype(int)
 
-apartments.to_pickle('apartments_database.pkl')
-average_price.to_pickle('average_price_database.pkl')
+def get_walking_distance_osrm(origin, destination):
+    url = (
+        f"http://router.project-osrm.org/route/v1/foot/"
+        f"{origin[1]},{origin[0]};{destination[1]},{destination[0]}?overview=false"
+    )
+    response = requests.get(url)
+    data = response.json()
+
+    if 'routes' in data and data['routes']:
+        distance = data['routes'][0]['distance']
+        return distance
+    return None
+
+closest_stations = []
+
+for _, apt in apartments.iterrows():
+    min_distance = float('inf')
+    closest_stop = None
+
+    for _, station in dankal.iterrows():
+        origin = (apt['lat'], apt['lon'])
+        destination = (station['lat'], station['lon'])
+        
+        # Get the walking distance from OSRM
+        distance = get_walking_distance_osrm(origin, destination)
+        if distance is not None and distance < min_distance:
+            min_distance = distance
+            closest_station = {
+                'apartment': apt['token'],
+                'station': station['station'],
+                'distance_m': min_distance
+            }
+
+    if closest_station:
+        closest_stations.append(closest_station)
+
+closest_stations_df = pd.DataFrame(closest_stations)
+apartments = apartments.merge(closest_stations_df, left_on='token', right_on='apartment', how='left')
+
+# apartments.to_pickle('apartments_database.pkl')
+# average_price.to_pickle('average_price_database.pkl')
