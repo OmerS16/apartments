@@ -1,9 +1,13 @@
 import pandas as pd
 import requests
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import osmnx as ox
+import networkx as nx
+from tqdm import tqdm
+from joblib import Parallel, delayed
 
 neighborhoods = pd.read_pickle('neighborhoods_database.pkl')
-dankal = pd.read_excel('dankal.xlsx')
+stations = pd.read_excel('dankal.xlsx')
 
 def fetch_apartments_data(row):
     area_id = row['area_id']
@@ -56,44 +60,31 @@ average_price = average_price[['city', 'neighborhood', 'rooms', 'price_mean', 's
 average_price['price_per_sq_m'] = average_price['price_mean'] / average_price['sq_m_mean']
 average_price[['price_mean', 'sq_m_mean', 'price_per_sq_m']] = average_price[['price_mean', 'sq_m_mean', 'price_per_sq_m']].astype(int)
 
-def get_walking_distance_osrm(origin, destination):
-    url = (
-        f"http://router.project-osrm.org/route/v1/foot/"
-        f"{origin[1]},{origin[0]};{destination[1]},{destination[0]}?overview=false"
-    )
-    response = requests.get(url)
-    data = response.json()
+left = min(apartments['lon'].min(), stations['lon'].min())
+bottom = min(apartments['lat'].min(), stations['lat'].min())
+right = max(apartments['lon'].max(), stations['lon'].max())
+top = max(apartments['lat'].max(), stations['lat'].max())
 
-    if 'routes' in data and data['routes']:
-        distance = data['routes'][0]['distance']
-        return distance
-    return None
+bbox = (left, bottom, right, top)
 
-closest_stations = []
+G = ox.graph_from_bbox(bbox, network_type='walk')
 
-for _, apt in apartments.iterrows():
-    min_distance = float('inf')
-    closest_stop = None
+station_nodes = stations.apply(lambda row: ox.distance.nearest_nodes(G, X=row['lon'], Y=row['lat']), axis=1)
+apartments['nearest_node'] = apartments.apply(lambda row: ox.distance.nearest_nodes(G, X=row['lon'], Y=row['lat']), axis=1)
 
-    for _, station in dankal.iterrows():
-        origin = (apt['lat'], apt['lon'])
-        destination = (station['lat'], station['lon'])
-        
-        # Get the walking distance from OSRM
-        distance = get_walking_distance_osrm(origin, destination)
-        if distance is not None and distance < min_distance:
-            min_distance = distance
-            closest_station = {
-                'apartment': apt['token'],
-                'station': station['station'],
-                'distance_m': min_distance
-            }
+def calculate_distance(apartment_node):
+    try:
+        distances = [nx.shortest_path_length(G, apartment_node, station_node, weight='length') for station_node in station_nodes]
+        return min(distances)
+    except Exception:
+        return None
 
-    if closest_station:
-        closest_stations.append(closest_station)
-
-closest_stations_df = pd.DataFrame(closest_stations)
-apartments = apartments.merge(closest_stations_df, left_on='token', right_on='apartment', how='left')
+results = Parallel(n_jobs=-1, prefer='processes', batch_size=50)(
+    delayed(calculate_distance)(node)
+    for node in tqdm(apartments['nearest_node']))
+       
+results_df = pd.DataFrame(results, columns=['token', 'walking_distance'])
+apartments = apartments.merge(results_df, on='token', how='left')
 
 # apartments.to_pickle('apartments_database.pkl')
 # average_price.to_pickle('average_price_database.pkl')
