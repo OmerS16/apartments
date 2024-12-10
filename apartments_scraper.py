@@ -83,8 +83,10 @@ results = Parallel(n_jobs=-1, prefer='processes', batch_size=50)(
     delayed(calculate_distance)(node)
     for node in tqdm(apartments['nearest_node']))
        
-results_df = pd.DataFrame(results, columns=['token', 'walking_distance'])
-apartments = apartments.merge(results_df, on='token', how='left')
+apartments['walking_distance'] = results
+walking_speed = 83.33
+apartments['walking_time'] = apartments['walking_distance'] / walking_speed
+apartments['walking_time'] = apartments['walking_time'].fillna(-1)
 
-# apartments.to_pickle('apartments_database.pkl')
-# average_price.to_pickle('average_price_database.pkl')
+apartments.to_pickle('apartments_database.pkl')
+average_price.to_pickle('average_price_database.pkl')
