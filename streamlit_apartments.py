@@ -41,7 +41,7 @@ for _, row in filtered_apartments.iterrows():
         fill_color='white',
         fill_opacity=0.8,
         popup=f"<a href='{row['url']}' target='_blank'>Click here for details</a>",
-        tooltip=row.get(['street', 'price'])
+        tooltip=row.get('street', 'price')
         ).add_to(m)
     
 st_folium(m, width=700, height=500)
