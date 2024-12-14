@@ -15,7 +15,7 @@ average_price = pd.read_pickle(average_price_file)
 st.title("Find the best neighborhood for your budget")
 st.sidebar.header("Input your preferences")
 
-min_price, max_price = st.sidebar.select_slider("Budget (in shekels):", options=[i for i in range(1000, 10000, 1000)], value=(5000, 6000))
+min_price, max_price = st.sidebar.select_slider("Budget (in shekels):", options=[i for i in range(1000, 10001, 500)], value=(5000, 6000))
 num_rooms = st.sidebar.pills("number of rooms:", [i for i in range(1, 6)], selection_mode='multi', default=2)
 walking_time = st.sidebar.number_input("Maximum walking distance from light rail stations (in minutes):", min_value=0, value=5, step=1)
 
