@@ -51,7 +51,7 @@ for _, row in filtered_apartments.iterrows():
             <div style="display: flex; align-items: center;">
                 <div style="margin-right: 10px; white-space:nowrap;">
                     <h5><b>{row['street']} {int(row['house_num'])}</b></h5>
-                    <h4>₪{row['price']}</h4>
+                    <h5>₪{row['price']}</h5>
                 </div>
                 <a href="{row['url']}" target="_blank">
                     <img src="{row['image']}" 
