@@ -46,7 +46,14 @@ for _, row in filtered_apartments.iterrows():
         fill=True,
         fill_color='white',
         fill_opacity=0.8,
-        popup=f"<a href='{row['url']}' target='_blank'>Click here for details</a>",
+        # popup=f"<a href='{row['url']}' target='_blank'>Click here for details</a>",
+        popup=f"""
+            <div>
+                <h4>Location Info</h4>
+                <img src="{row['image']}" width="200px" alt="Image">
+                <p>This is an example popup with an image.</p>
+            </div>
+        """,
         tooltip=row.get('price')
         ).add_to(m)
     
