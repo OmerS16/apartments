@@ -26,7 +26,7 @@ filtered_average_price = filtered_average_price.sort_values('price_per_sq_m')
 filtered_apartments = apartments[(apartments['rooms'].isin(num_rooms)) & (apartments['price'] >= min_price) & (apartments['price'] <= max_price) & (apartments['walking_time'] <= walking_time)]
 
 if not filtered_average_price.empty:
-    st.subheader("Best neighborhoods in Tel Aviv area for your budget")
+    st.subheader("נמצאו השכונות הכי טובות עבור ההעדפות שלך!")
     st.dataframe(filtered_average_price[['city', 'neighborhood', 'rooms', 'price_mean', 'sq_m_mean', 'price_per_sq_m']])
 else:
     st.write("No neighborhoods match your criteria. Try adjusting your budget or number of rooms.")
