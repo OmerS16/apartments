@@ -58,7 +58,7 @@ for _, row in filtered_apartments.iterrows():
                         <h5><b>{row['street']} {int(row['house_num'])}</b></h5>
                         <h5>₪{row['price']}</h5>
                         <h5>{int(row['rooms'])} חדרים</h5>
-                        <h5>{int(row['sq_m'])} מטר רבוע</h5>
+                        <h5>{int(row['sq_m'])} מ"\ר</h5>
                     </a>
                 </div>
             </div>
