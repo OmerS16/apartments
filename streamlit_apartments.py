@@ -50,7 +50,7 @@ for _, row in filtered_apartments.iterrows():
         popup=f"""
             <div style="display: flex; align-items: center;">
                 <div style="margin-right: 10px;">
-                    <h4>{row['street']} {int(row['house_num'])}</h4>
+                    <h3>{row['street']} {int(row['house_num'])}</h3>
                     <h4><b>₪{row['price']}</b></h4>
                 </div>
                 <a href="{row['url']}" target="_blank">
