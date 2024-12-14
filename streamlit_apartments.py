@@ -24,7 +24,7 @@ broker = st.sidebar.toggle("ללא תיווך", value=True)
 # filtered_average_price = average_price[(average_price['rooms'].isin(num_rooms)) & (average_price['price_mean'] >= min_price) & (average_price['price_mean'] <= max_price)]
 # filtered_average_price = filtered_average_price.sort_values('price_per_sq_m')
 
-max_price = float('inf') if max_price == '10,000+' else max_price
+min_price, max_price = map(lambda price: float('inf') if price == '10,000+' else price, (min_price, max_price))
 
 conditions = (
     (apartments['rooms'].isin(num_rooms)) &
