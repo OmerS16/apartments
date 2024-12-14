@@ -19,6 +19,7 @@ min_price, max_price = st.sidebar.select_slider("Budget (in shekels):", options=
 num_rooms = st.sidebar.pills("Number of rooms:", [i for i in range(1, 6)], selection_mode='multi', default=2)
 min_size, max_size = st.sidebar.select_slider("Size (in sq. meters)", options=[i for i in range(0, 301, 5)], value=(30, 70))
 walking_time = st.sidebar.number_input("Maximum walking distance from light rail stations (in minutes):", min_value=0, value=5, step=1)
+broker = st.sidebar.toggle()
 
 filtered_average_price = average_price[(average_price['rooms'].isin(num_rooms)) & (average_price['price_mean'] >= min_price) & (average_price['price_mean'] <= max_price)]
 filtered_average_price = filtered_average_price.sort_values('price_per_sq_m')
@@ -30,6 +31,7 @@ if not filtered_average_price.empty:
 else:
     st.write("No neighborhoods match your criteria. Try adjusting your budget or number of rooms.")
 
+st.write("Find the best apartments for you!")
 map_center = [apartments['lat'].mean(), apartments['lon'].mean()]
 m = folium.Map(location=map_center, zoom_start=12)
 
