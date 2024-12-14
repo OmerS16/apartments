@@ -12,7 +12,7 @@ average_price_file = BytesIO(requests.get(average_price_url).content)
 apartments = pd.read_pickle(apartments_file)
 average_price = pd.read_pickle(average_price_file)
 
-st.title("מצא את השכונה המתאימה ביותר עבורך")
+# st.title("מצא את השכונה המתאימה ביותר עבורך")
 st.sidebar.header("אפשרויות סינון")
 
 min_price, max_price = st.sidebar.select_slider("מחיר", options=[i for i in range(0, 10001, 500)], value=(5000, 6000))
@@ -21,15 +21,17 @@ min_size, max_size = st.sidebar.select_slider("(מטר רבוע) גודל הדי
 walking_time = st.sidebar.number_input("מרחק הליכה מרכבת קלה בדקות", min_value=0, value=5, step=1)
 broker = st.sidebar.toggle("ללא תיווך")
 
-filtered_average_price = average_price[(average_price['rooms'].isin(num_rooms)) & (average_price['price_mean'] >= min_price) & (average_price['price_mean'] <= max_price)]
-filtered_average_price = filtered_average_price.sort_values('price_per_sq_m')
+# filtered_average_price = average_price[(average_price['rooms'].isin(num_rooms)) & (average_price['price_mean'] >= min_price) & (average_price['price_mean'] <= max_price)]
+# filtered_average_price = filtered_average_price.sort_values('price_per_sq_m')
+if broker:
+    filtered_apartments = apartments[apartments['adType'] == 'private']
 filtered_apartments = apartments[(apartments['rooms'].isin(num_rooms)) & (apartments['price'] >= min_price) & (apartments['price'] <= max_price) & (apartments['walking_time'] <= walking_time)]
 
-if not filtered_average_price.empty:
-    st.subheader("השכונות הכי טובות עבור ההעדפות שלך")
-    st.dataframe(filtered_average_price[['city', 'neighborhood', 'rooms', 'price_mean', 'sq_m_mean', 'price_per_sq_m']])
-else:
-    st.write("לא נמצאו שכונות מתאימות, אנא שנה את העדפותיך")
+# if not filtered_average_price.empty:
+#     st.subheader("השכונות הכי טובות עבור ההעדפות שלך")
+#     st.dataframe(filtered_average_price[['city', 'neighborhood', 'rooms', 'price_mean', 'sq_m_mean', 'price_per_sq_m']])
+# else:
+#     st.write("לא נמצאו שכונות מתאימות, אנא שנה את העדפותיך")
 
 st.title("מצא דירות המתאימות עבורך")
 map_center = [apartments['lat'].mean(), apartments['lon'].mean()]
