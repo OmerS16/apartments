@@ -31,7 +31,7 @@ conditions = (
     (apartments['price'] >= min_price) &
     (apartments['price'] <= max_price) &
     (apartments['sq_m'] >= min_size) &
-    (apartments['sq_m'] <= max_size)
+    (apartments['sq_m'] <= max_size) &
     (apartments['walking_time'] <= walking_time)
 )
 
