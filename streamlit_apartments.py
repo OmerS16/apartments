@@ -49,7 +49,7 @@ for _, row in filtered_apartments.iterrows():
         # popup=f"<a href='{row['url']}' target='_blank'>Click here for details</a>",
         popup=f"""
             <div>
-                <h4>{row['street']} {row['house_num']}</h4>
+                <h4>{row['street']} {str(row['house_num'])}</h4>
                 <img src="{row['image']}" width="200px" alt="Image">
                 <p>This is an example popup with an image.</p>
             </div>
