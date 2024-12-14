@@ -48,17 +48,17 @@ for _, row in filtered_apartments.iterrows():
         fill_opacity=0.8,
         # popup=f"<a href='{row['url']}' target='_blank'>Click here for details</a>",
         popup=f"""
-            <div style="display: flex; align-items: center; direction: rtl">
-                <div style="margin-right: 10px; white-space: nowrap;">
+            <div style="display: flex; align-items: center; direction: rtl;">
+                <a href="{row['url']}" target="_blank">
+                    <img src="{row['image']}" 
+                         style="width: 200px; height: 150px; object-fit: cover; border-radius: 5px; margin-left: 10px;">
+                </a>
+                <div style="white-space: nowrap; text-align: right;">
                     <a href="{row['url']}" target="_blank" style="color: black; text-decoration: none;">
-                        <h5><b>{row['street']} {int(row['house_num'])}</b></h5>
-                        <h5>₪{row['price']}</h5>
-                        <h5>{int(row['rooms'])} חדרים</h5>
+                        <h5 style="margin: 0;"><b>{row['street']} {int(row['house_num'])}</b></h5>
+                        <h5 style="margin: 0;">₪{row['price']}</h5>
                     </a>
                 </div>
-                <a href="{row['url']}" target="_blank">
-                    <img src="{row['image']}" style="width: 200px; height: 150px; object-fit: cover; border-radius: 5px;">
-                </a>
             </div>
         """,
         ).add_to(m)
