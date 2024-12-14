@@ -29,9 +29,9 @@ if not filtered_average_price.empty:
     st.subheader("השכונות הכי טובות עבור ההעדפות שלך")
     st.dataframe(filtered_average_price[['city', 'neighborhood', 'rooms', 'price_mean', 'sq_m_mean', 'price_per_sq_m']])
 else:
-    st.write("No neighborhoods match your criteria. Try adjusting your budget or number of rooms.")
+    st.write("לא נמצאו שכונות מתאימות, אנא שנה את העדפותיך")
 
-st.title("Find the best apartments for you!")
+st.title("מצא דירות המתאימות עבורך")
 map_center = [apartments['lat'].mean(), apartments['lon'].mean()]
 m = folium.Map(location=map_center, zoom_start=12)
 
