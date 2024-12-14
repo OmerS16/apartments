@@ -50,8 +50,10 @@ for _, row in filtered_apartments.iterrows():
         popup=f"""
             <div>
                 <h4>{row['street']} {int(row['house_num'])}</h4>
-                <img src="{row['image']}" width="100px" alt="Image">
-                <p>This is an example popup with an image.</p>
+                <a href="{row['url']}" target="_blank">
+                    <img src="{row['image']}" width="200px">
+                </a>
+                <p>₪ָ{int(row['price'])}.</p>
             </div>
         """,
         tooltip=row.get('price')
