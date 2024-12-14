@@ -15,7 +15,7 @@ average_price = pd.read_pickle(average_price_file)
 # st.title("מצא את השכונה המתאימה ביותר עבורך")
 st.sidebar.header("אפשרויות סינון")
 
-min_price, max_price = st.sidebar.select_slider("מחיר", options=[i for i in range(0, 10001, 500)], value=(5000, 6000))
+min_price, max_price = st.sidebar.select_slider("מחיר", options=[i for i in range(0, 10000, 500)] + ["10,000+"], value=(5000, 6000))
 num_rooms = st.sidebar.pills("מספר חדרים", [i for i in range(1, 6)], selection_mode='multi', default=2)
 min_size, max_size = st.sidebar.select_slider('(מ"ר) גודל הדירה', options=[i for i in range(0, 301, 5)], value=(30, 70))
 walking_time = st.sidebar.number_input("מרחק הליכה מרכבת קלה בדקות", min_value=0, value=5, step=1)
@@ -23,11 +23,19 @@ broker = st.sidebar.toggle("ללא תיווך", value=True)
 
 # filtered_average_price = average_price[(average_price['rooms'].isin(num_rooms)) & (average_price['price_mean'] >= min_price) & (average_price['price_mean'] <= max_price)]
 # filtered_average_price = filtered_average_price.sort_values('price_per_sq_m')
-if broker:
-    filtered_apartments = apartments[(apartments['adType'] == 'private') & (apartments['rooms'].isin(num_rooms)) & (apartments['price'] >= min_price) & (apartments['price'] <= max_price) & (apartments['walking_time'] <= walking_time)]
-else:
-    filtered_apartments = apartments[(apartments['rooms'].isin(num_rooms)) & (apartments['price'] >= min_price) & (apartments['price'] <= max_price) & (apartments['walking_time'] <= walking_time)]
 
+max_price = float('inf') if max_price == '10,000+' else max_price
+conditions = (
+    (apartments['rooms'].isin(num_rooms)) &
+    (apartments['price'] >= min_price) &
+    (apartments['price'] <= max_price) &
+    (apartments['walking_time'] <= walking_time)
+)
+
+if broker:
+    conditions &= (apartments['adType'] == 'private')
+
+filtered_apartments = apartments[conditions]
 # if not filtered_average_price.empty:
 #     st.subheader("השכונות הכי טובות עבור ההעדפות שלך")
 #     st.dataframe(filtered_average_price[['city', 'neighborhood', 'rooms', 'price_mean', 'sq_m_mean', 'price_per_sq_m']])
