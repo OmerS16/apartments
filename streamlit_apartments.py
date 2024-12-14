@@ -48,12 +48,12 @@ for _, row in filtered_apartments.iterrows():
         fill_opacity=0.8,
         # popup=f"<a href='{row['url']}' target='_blank'>Click here for details</a>",
         popup=f"""
-            <div style="display: flex; align-items: center;">
+            <div style="display: flex; align-items: center; direction: rtl">
                 <div style="margin-right: 10px; white-space: nowrap;">
                     <a href="{row['url']}" target="_blank" style="color: black; text-decoration: none;">
                         <h5><b>{row['street']} {int(row['house_num'])}</b></h5>
                         <h5>₪{row['price']}</h5>
-                        <h5>חדרים {int(row['rooms'])}</h5>
+                        <h5>{int(row['rooms'])} חדרים</h5>
                     </a>
                 </div>
                 <a href="{row['url']}" target="_blank">
