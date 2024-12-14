@@ -25,6 +25,7 @@ broker = st.sidebar.toggle("ללא תיווך")
 # filtered_average_price = filtered_average_price.sort_values('price_per_sq_m')
 if broker:
     filtered_apartments = apartments[apartments['adType'] == 'private']
+    st.write('test')
 filtered_apartments = apartments[(apartments['rooms'].isin(num_rooms)) & (apartments['price'] >= min_price) & (apartments['price'] <= max_price) & (apartments['walking_time'] <= walking_time)]
 
 # if not filtered_average_price.empty:
