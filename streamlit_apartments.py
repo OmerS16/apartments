@@ -55,9 +55,9 @@ for _, row in filtered_apartments.iterrows():
                 </a>
                 <div style="white-space: nowrap; text-align: right;">
                     <a href="{row['url']}" target="_blank" style="color: black; text-decoration: none;">
-                        <h5 style="margin: 0;"><b>{row['street']} {int(row['house_num'])}</b></h5>
-                        <h5 style="margin: 0;">₪{row['price']}</h5>
-                        <h5 style="margin: 0;">{int(row['rooms'])} חדרים</h5>
+                        <h5><b>{row['street']} {int(row['house_num'])}</b></h5>
+                        <h5>₪{row['price']}</h5>
+                        <h5>{int(row['rooms'])} חדרים</h5>
                     </a>
                 </div>
             </div>
