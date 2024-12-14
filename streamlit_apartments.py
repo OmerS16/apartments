@@ -50,7 +50,7 @@ for _, row in filtered_apartments.iterrows():
         popup=f"""
             <div>
                 <h4>{row['street']} {int(row['house_num'])}</h4>
-                <img src="{row['image']}" width="200px" alt="Image">
+                <img src="{row['image']}" width="100px" alt="Image">
                 <p>This is an example popup with an image.</p>
             </div>
         """,
