@@ -17,7 +17,7 @@ st.sidebar.header("Input your preferences")
 
 min_price, max_price = st.sidebar.select_slider("Budget (in shekels):", options=[i for i in range(0, 10001, 500)], value=(5000, 6000))
 num_rooms = st.sidebar.pills("Number of rooms:", [i for i in range(1, 6)], selection_mode='multi', default=2)
-min_size, max_size = st.sidebar.select_slider("Size (in sq. meters)", options=[i for i in range(0, 300, 5)], value=(30, 70))
+min_size, max_size = st.sidebar.select_slider("Size (in sq. meters)", options=[i for i in range(0, 301, 5)], value=(30, 70))
 walking_time = st.sidebar.number_input("Maximum walking distance from light rail stations (in minutes):", min_value=0, value=5, step=1)
 
 filtered_average_price = average_price[(average_price['rooms'].isin(num_rooms)) & (average_price['price_mean'] >= min_price) & (average_price['price_mean'] <= max_price)]
