@@ -12,8 +12,8 @@ average_price_file = BytesIO(requests.get(average_price_url).content)
 apartments = pd.read_pickle(apartments_file)
 average_price = pd.read_pickle(average_price_file)
 
-st.title("Find the best neighborhood for your budget")
-st.sidebar.header("Input your preferences")
+st.title("מצא את השכונה המתאימה ביותר עבורך")
+st.sidebar.header("אפשרויות סינון")
 
 min_price, max_price = st.sidebar.select_slider("Budget (in shekels):", options=[i for i in range(0, 10001, 500)], value=(5000, 6000))
 num_rooms = st.sidebar.pills("Number of rooms:", [i for i in range(1, 6)], selection_mode='multi', default=2)
