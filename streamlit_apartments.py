@@ -56,7 +56,6 @@ for _, row in filtered_apartments.iterrows():
                 <h4>₪ָ{int(row['price'])}</h4>
             </div>
         """,
-        tooltip=row.get('price')
         ).add_to(m)
     
 st_folium(m, width=700, height=500)
