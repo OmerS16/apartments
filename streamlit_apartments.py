@@ -21,7 +21,7 @@ walking_time = st.sidebar.number_input("Maximum walking distance from light rail
 
 filtered_average_price = average_price[(average_price['rooms'].isin(num_rooms)) & (average_price['price_mean'] >= min_price) & (average_price['price_mean'] <= max_price)]
 filtered_average_price = filtered_average_price.sort_values('price_per_sq_m')
-filtered_apartments = apartments[(apartments['rooms'].isin(num_rooms)) & (average_price['price_mean'] >= min_price) & (average_price['price_mean'] <= max_price) & (apartments['walking_time'] <= walking_time)]
+filtered_apartments = apartments[(apartments['rooms'].isin(num_rooms)) & (average_price['price'] >= min_price) & (average_price['price'] <= max_price) & (apartments['walking_time'] <= walking_time)]
 
 if not filtered_average_price.empty:
     st.subheader("Best neighborhoods in Tel Aviv area for your budget")
