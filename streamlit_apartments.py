@@ -53,7 +53,7 @@ for _, row in filtered_apartments.iterrows():
                 <a href="{row['url']}" target="_blank">
                     <img src="{row['image']}" width="200px">
                 </a>
-                <p>₪ָ{int(row['price'])}.</p>
+                <h3>₪ָ{int(row['price'])}</h3>
             </div>
         """,
         tooltip=row.get('price')
