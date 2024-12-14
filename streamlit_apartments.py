@@ -53,7 +53,7 @@ for _, row in filtered_apartments.iterrows():
                 <a href="{row['url']}" target="_blank">
                     <img src="{row['image']}" style="width:200px; height:150px; border-radius:5px; object-fit:cover;">
                 </a>
-                <h4>{int(row['price'])}</h4>
+                <h4>₪{int(row['price'])}</h4>
             </div>
         """,
         ).add_to(m)
