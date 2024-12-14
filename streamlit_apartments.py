@@ -15,13 +15,13 @@ average_price = pd.read_pickle(average_price_file)
 st.title("Find the best neighborhood for your budget")
 st.sidebar.header("Input your preferences")
 
-budget = st.sidebar.number_input("Enter your budget (in shekels):", min_value=0, value=5000, step=1000)
-num_rooms = st.sidebar.number_input("Enter the number of rooms:", min_value=1, value=2, step=1)
-walking_time = st.sidebar.number_input("Enter the maximum walking distance from light rail stations (in minutes):", min_value=0, value=5, step=1)
+budget = st.sidebar.number_input("Budget (in shekels):", min_value=0, value=5000, step=1000)
+num_rooms = st.sidebar.pills("number of rooms:", [i for i in range(1, 6)], selection_mode='multi', default=2)
+walking_time = st.sidebar.number_input("Maximum walking distance from light rail stations (in minutes):", min_value=0, value=5, step=1)
 
-filtered_average_price = average_price[(average_price['rooms'] == num_rooms) & (average_price['price_mean'] <= budget)]
+filtered_average_price = average_price[(average_price['rooms'].isin(num_rooms)) & (average_price['price_mean'] <= budget)]
 filtered_average_price = filtered_average_price.sort_values('price_per_sq_m')
-filtered_apartments = apartments[(apartments['rooms'] == num_rooms) & (apartments['price'] <= budget) & (apartments['walking_time'] <= walking_time)]
+filtered_apartments = apartments[(apartments['rooms'].isin(num_rooms)) & (apartments['price'] <= budget) & (apartments['walking_time'] <= walking_time)]
 
 if not filtered_average_price.empty:
     st.subheader("Best neighborhoods in Tel Aviv area for your budget")

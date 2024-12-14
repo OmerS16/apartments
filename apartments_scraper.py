@@ -70,7 +70,9 @@ bbox = (left, bottom, right, top)
 G = ox.graph_from_bbox(bbox, network_type='walk')
 
 station_nodes = stations.apply(lambda row: ox.distance.nearest_nodes(G, X=row['lon'], Y=row['lat']), axis=1)
-apartments['nearest_node'] = apartments.apply(lambda row: ox.distance.nearest_nodes(G, X=row['lon'], Y=row['lat']), axis=1)
+lons = apartments['lon'].values
+lats = apartments['lat'].values
+apartments['nearest_node'] = ox.distance.nearest_nodes(G, X=lons, Y=lats)
 
 def calculate_distance(apartment_node):
     try:
@@ -79,7 +81,7 @@ def calculate_distance(apartment_node):
     except Exception:
         return None
 
-results = Parallel(n_jobs=-1, prefer='processes', batch_size=50)(
+results = Parallel(n_jobs=-1, prefer='processes', batch_size=100)(
     delayed(calculate_distance)(node)
     for node in tqdm(apartments['nearest_node']))
        
