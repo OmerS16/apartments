@@ -25,6 +25,7 @@ broker = st.sidebar.toggle("ללא תיווך", value=True)
 # filtered_average_price = filtered_average_price.sort_values('price_per_sq_m')
 
 max_price = float('inf') if max_price == '10,000+' else max_price
+
 conditions = (
     (apartments['rooms'].isin(num_rooms)) &
     (apartments['price'] >= min_price) &
@@ -36,6 +37,7 @@ if broker:
     conditions &= (apartments['adType'] == 'private')
 
 filtered_apartments = apartments[conditions]
+
 # if not filtered_average_price.empty:
 #     st.subheader("השכונות הכי טובות עבור ההעדפות שלך")
 #     st.dataframe(filtered_average_price[['city', 'neighborhood', 'rooms', 'price_mean', 'sq_m_mean', 'price_per_sq_m']])
@@ -66,7 +68,6 @@ for _, row in filtered_apartments.iterrows():
                         <h5><b>{row['street']} {int(row['house_num'])}</b></h5>
                         <h5>₪{row['price']}</h5>
                         <h6>{int(row['rooms'])} חדרים</h6>
-                        <h6>{int(row['sq_m'])} מ"ר</h6>
                     </a>
                 </div>
             </div>
