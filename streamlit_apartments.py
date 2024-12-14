@@ -17,7 +17,7 @@ st.sidebar.header("אפשרויות סינון")
 
 min_price, max_price = st.sidebar.select_slider("מחיר", options=[i for i in range(0, 10001, 500)], value=(5000, 6000))
 num_rooms = st.sidebar.pills("מספר חדרים", [i for i in range(1, 6)], selection_mode='multi', default=2)
-min_size, max_size = st.sidebar.select_slider("גודל הדירה במ/"ר, options=[i for i in range(0, 301, 5)], value=(30, 70))
+min_size, max_size = st.sidebar.select_slider("גודל הדירה במ\\"ר, options=[i for i in range(0, 301, 5)], value=(30, 70))
 walking_time = st.sidebar.number_input("מרחק הליכה מרכבת קלה בדקות", min_value=0, value=5, step=1)
 broker = st.sidebar.toggle("ללא תיווך")
 
