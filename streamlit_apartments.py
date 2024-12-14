@@ -24,9 +24,9 @@ broker = st.sidebar.toggle("ללא תיווך")
 # filtered_average_price = average_price[(average_price['rooms'].isin(num_rooms)) & (average_price['price_mean'] >= min_price) & (average_price['price_mean'] <= max_price)]
 # filtered_average_price = filtered_average_price.sort_values('price_per_sq_m')
 if broker:
-    filtered_apartments = apartments[apartments['adType'] == 'private']
-    st.write('test')
-filtered_apartments = apartments[(apartments['rooms'].isin(num_rooms)) & (apartments['price'] >= min_price) & (apartments['price'] <= max_price) & (apartments['walking_time'] <= walking_time)]
+    filtered_apartments = apartments[(apartments['adType'] == 'private') & (apartments['rooms'].isin(num_rooms)) & (apartments['price'] >= min_price) & (apartments['price'] <= max_price) & (apartments['walking_time'] <= walking_time)]
+else:
+    filtered_apartments = apartments[(apartments['rooms'].isin(num_rooms)) & (apartments['price'] >= min_price) & (apartments['price'] <= max_price) & (apartments['walking_time'] <= walking_time)]
 
 # if not filtered_average_price.empty:
 #     st.subheader("השכונות הכי טובות עבור ההעדפות שלך")
