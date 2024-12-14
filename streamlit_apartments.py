@@ -31,7 +31,7 @@ if not filtered_average_price.empty:
 else:
     st.write("No neighborhoods match your criteria. Try adjusting your budget or number of rooms.")
 
-st.write("Find the best apartments for you!")
+st.title("Find the best apartments for you!")
 map_center = [apartments['lat'].mean(), apartments['lon'].mean()]
 m = folium.Map(location=map_center, zoom_start=12)
 
