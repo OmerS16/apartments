@@ -38,7 +38,13 @@ if broker:
 
 filtered_apartments = apartments[conditions]
 
-st.title("מצא דירות המתאימות עבורך")
+# st.title("מצא דירות המתאימות עבורך")
+st.markdown(
+    """
+    <h1 style='text-align: right; direction: rtl;'>מצא דירות המתאימות עבורך</h1>
+    """,
+    unsafe_allow_html=True
+)
 map_center = [apartments['lat'].mean(), apartments['lon'].mean()]
 m = folium.Map(location=map_center, zoom_start=12)
 

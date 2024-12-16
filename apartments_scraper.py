@@ -71,7 +71,7 @@ def calculate_distance(apartment_node):
     except Exception:
         return None
 
-results = Parallel(n_jobs=-1, prefer='processes', batch_size=200)(
+results = Parallel(n_jobs=-1, prefer='processes', batch_size=100)(
     delayed(calculate_distance)(node)
     for node in tqdm(apartments['nearest_node']))
        
