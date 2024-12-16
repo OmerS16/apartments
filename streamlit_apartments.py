@@ -12,9 +12,7 @@ average_price_file = BytesIO(requests.get(average_price_url).content)
 apartments = pd.read_pickle(apartments_file)
 average_price = pd.read_pickle(average_price_file)
 
-# st.title("מצא את השכונה המתאימה ביותר עבורך")
 st.sidebar.header("אפשרויות סינון")
-
 
 min_price, max_price = st.sidebar.select_slider("מחיר", options=[i for i in range(0, 20000, 500)] + ['20,000+'], value=(5000, 6000))
 num_rooms = st.sidebar.pills("מספר חדרים", [i for i in range(1, 6)], selection_mode='multi', default=2)
@@ -22,9 +20,6 @@ min_size, max_size = st.sidebar.select_slider('(מ"ר) גודל הדירה', opt
 min_floor, max_floor = st.sidebar.select_slider("מס' קומה", options=['קרקע'] + [i for i in range(1, 10, 1)] + ['10+'], value=(1, 5))
 walking_time = st.sidebar.number_input("מרחק הליכה מרכבת קלה בדקות", min_value=0, value=10, step=1)
 broker = st.sidebar.toggle("ללא תיווך", value=True)
-
-# filtered_average_price = average_price[(average_price['rooms'].isin(num_rooms)) & (average_price['price_mean'] >= min_price) & (average_price['price_mean'] <= max_price)]
-# filtered_average_price = filtered_average_price.sort_values('price_per_sq_m')
 
 min_price, max_price = map(lambda price: float(apartments['price'].max()) if price == '20,000+' else price, (min_price, max_price))
 min_size, max_size = map(lambda size: float(apartments['sq_m'].max()) if size == '300+' else size, (min_size, max_size))
@@ -46,12 +41,6 @@ if broker:
 
 filtered_apartments = apartments[conditions]
 
-# if not filtered_average_price.empty:
-#     st.subheader("השכונות הכי טובות עבור ההעדפות שלך")
-#     st.dataframe(filtered_average_price[['city', 'neighborhood', 'rooms', 'price_mean', 'sq_m_mean', 'price_per_sq_m']])
-# else:
-#     st.write("לא נמצאו שכונות מתאימות, אנא שנה את העדפותיך")
-
 st.title("מצא דירות המתאימות עבורך")
 map_center = [apartments['lat'].mean(), apartments['lon'].mean()]
 m = folium.Map(location=map_center, zoom_start=12)
@@ -64,7 +53,6 @@ for _, row in filtered_apartments.iterrows():
         fill=True,
         fill_color='white',
         fill_opacity=0.8,
-        # popup=f"<a href='{row['url']}' target='_blank'>Click here for details</a>",
         popup=f'''
             <div style="display: flex; align-items: center; direction: rtl;">
                 <a href="{row['url']}" target="_blank">
