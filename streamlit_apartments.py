@@ -41,7 +41,7 @@ filtered_apartments = apartments[conditions]
 # st.title("מצא דירות המתאימות עבורך")
 st.markdown(
     """
-    <h1 style='text-align: center; direction: rtl;'>מצא דירות המתאימות עבורך</h1>
+    <h1 style='text-align: center; direction: rtl;'>מצא דירות מתאימות עבורך</h1>
     """,
     unsafe_allow_html=True
 )
