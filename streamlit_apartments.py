@@ -6,11 +6,8 @@ from io import BytesIO
 import requests
 
 apartments_url = "https://github.com/OmerS16/apartments/blob/main/apartments_database.pkl?raw=true"
-average_price_url = "https://github.com/OmerS16/apartments/blob/main/average_price_database.pkl?raw=true"
 apartments_file = BytesIO(requests.get(apartments_url).content)
-average_price_file = BytesIO(requests.get(average_price_url).content)
 apartments = pd.read_pickle(apartments_file)
-average_price = pd.read_pickle(average_price_file)
 
 st.sidebar.header("אפשרויות סינון")
 
