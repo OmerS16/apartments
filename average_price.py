@@ -9,6 +9,6 @@ average_price = average_price.rename(columns={'price_count':'count', 'rooms_':'r
 average_price = average_price[['city', 'neighborhood', 'rooms', 'price_mean', 'sq_m_mean', 'count']]
 average_price = average_price.fillna(0)
 average_price['price_per_sq_m'] = average_price['price_mean'] / average_price['sq_m_mean']
-average_price[['price_mean', 'sq_m_mean', 'price_per_sq_m']] = average_price[['price_mean', 'sq_m_mean', 'price_per_sq_m']].astype(int)
+# average_price[['price_mean', 'sq_m_mean', 'price_per_sq_m']] = average_price[['price_mean', 'sq_m_mean', 'price_per_sq_m']].astype(int)
 
-average_price.to_pickle('average_price_database.pkl')
+# average_price.to_pickle('average_price_database.pkl')

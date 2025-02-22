@@ -14,7 +14,7 @@ def fetch_apartments_data(row):
     city_id = row['city_id']
     neighborhood_id = row['neighborhood_id']
     
-    url = f"https://gw.yad2.co.il/realestate-feed/rent/map?property=1&topArea=2&area={area_id}&city={city_id}&neighborhood={neighborhood_id}"
+    url = f"https://gw.yad2.co.il/realestate-feed/rent/map?property=1,3,6,7,25,49,51,11,31,43,4&topArea=2&area={area_id}&city={city_id}&neighborhood={neighborhood_id}"
     response = requests.get(url)
     data = response.json()
     df = pd.DataFrame(data)
